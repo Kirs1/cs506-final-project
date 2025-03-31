@@ -1,23 +1,39 @@
-# cs506-final-project
-Project Objectives：Predicting the number of goals in a soccer match based on odds
+# cs506-final-project midterm repo
 
-Project Description： The odds themselves are set by bookmakers based on a variety of factors (including team strength, betting volume, etc.), reflecting the market's expectations of the outcome of the game. By analyzing the changes in the odds, we can also obtain prediction information on the number of goals in the game.
+## Goal Predictor
+The tool for predicting integer and interval goals
 
-Collecting data：
-1.Odds data:The initial odds and real-time odds offered by bookmakers for the game, including odds of win, draw, loss, over/under, etc.
-Source: Obtained by accessing the API of the odds data provider,(Such as SportOddsAPI, OddsMatrix) Some websites provide collated football datasets.(WhoScored, FootyStats and so on)
+## Summary
+Goal Predictor is a tool for predicting integer goals and interval goals (less than 2.5 goals and more than 2.5 goals). It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals.
 
-2.Historical match result data: match date, home and away teams, scores, etc.
-Source: same as above.
+# Data
+## Dataset
+We are currently using a public database from Kaggle: https://www.kaggle.com/datasets/sashchernuh/european-football.
+We will try to merge it with other databases to get more features (such as weather, lineup ratings, etc.) to strengthen the correlation between the input data and the number of goals scored.
 
-Data modeling plan:
-1.Multiple regression model:Taking odds as independent variables and the total number of goals in the game as dependent variables, a multiple regression model is established to analyze the relationship between odds and the number of goals.
+## Data preprocessing
+We read all the odds related features from the database：
 
-2.Machine learning model: Application: Use algorithms such as random forest and XGBoost to predict the number of goals based on odds data.
+- AvgH = Market average home win odds
+- AvgD = Market average draw win odds
+- AvgA = Market average away win odds
+- Avg>2.5 = Market average over 2.5 goals
+- Avg<2.5 = Market average under 2.5 goals
+- AvgAHH = Market average Asian handicap home team odds
+- AvgAHA = Market average Asian handicap away team odds
 
-Data visualization plan:In order to intuitively display the data and model prediction results, the following visualization methods are planned:
-1.Scatter plot of odds and actual number of goals: evaluate the relationship between odds and number of goals.
-2.Scatter plot of actual number of goals and predicted number of goals: evaluate the prediction effect of the model.
+And some features that are strongly correlated with the number of goals：
+- HS = Home Team Shots
+- AS = Away Team Shots
+- HST = Home Team Shots on Target
+- AST = Away Team Shots on Target
 
-Test plan: In order to evaluate the performance of the model, the following test strategy is planned:
-Dataset division: The collected data is divided into training set and test set in chronological order, for example, using the data of the 2010-2018 season(Leagues in different regions) for training and the data of the 2019-2020 season for testing.
+Also the number of goals scored：
+- FTHG  = Full Time Home Team Goals
+- FTAG  = Full Time Away Team Goals
+- Total_goals = FTHG + FTAG
+
+
+
+
+
