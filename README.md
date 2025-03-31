@@ -1,4 +1,5 @@
 # cs506-final-project midterm repo
+Midterm repo presentation:
 
 ## Goal Predictor
 The tool for predicting integer and interval goals
@@ -68,8 +69,12 @@ The training data for the above three models are the filtered data between 2019 
 ## Future plan:
 Merge other databases to add more features (such as weather, lineup scores, etc.), and try other models to find out if there is a better fit than the current model.
 
+## Reproducability
+In order to reproduce our result, follow the below steps:
 
-
+- pip install -r requirements.txt.
+- Unzip soccerdatabase.zip.
+- run different model files.
 
 
 
