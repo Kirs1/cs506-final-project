@@ -1,5 +1,5 @@
 # cs506-final-project midterm repo
-Midterm repo presentation:
+Midterm repo presentation:https://youtu.be/2QugIp1c2kw
 
 ## Goal Predictor
 The tool for predicting integer and interval goals
