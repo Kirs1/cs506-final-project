@@ -1,0 +1,8 @@
+sqlite3
+pandas
+matplotlib.pyplot
+seaborn
+sklearn.linear_model
+sklearn.metrics
+sklearn.ensemble
+xgboost
