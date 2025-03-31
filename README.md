@@ -44,7 +44,7 @@ We also made a scatter plot for each feature and the total number of goals. Scat
 
 ![The scatter plot of AvgH vs total_goals](picture/Figure2.png)
 
-In this scatter plot, we can see that there are several differences in total goals and average home win odds. Therefore, we choose to filter out data with more than 9 goals and average home win odds greater than 20 to reduce the impact of outliers on the overall prediction accuracy and stability of the model.
+For example, in this scatter plot, we can see that there are several differences in total goals and average home win odds. Therefore, we choose to filter out data with more than 9 goals and average home win odds greater than 20 to reduce the impact of outliers on the overall prediction accuracy and stability of the model.
 
 ![The scatter plot of Avg<2.5 vs total_goals](picture/Figure6.png)
 
