@@ -2,7 +2,7 @@
 Midterm repo presentation:https://youtu.be/2QugIp1c2kw
 
 ## Goal Predictor
-The tool for predicting integer and interval goals
+The tool for predicting integer, interval goals and win/draw/loss in a match.
 
 ## Summary
 Goal Predictor is a tool for predicting integer goals, interval goals (less than 2.5 goals and more than 2.5 goals) and win/draw/loss. It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals and win/draw/loss.
@@ -64,7 +64,7 @@ Similarly, in this scatter plot of Avg < 2.5 vs total_goals, we choose to filter
 
 We created clean_data.py to clean up some of the above data.
 
-We plot a heat map to show the correlation between different features and the total number of goals:
+We used heat_map.py to create a heat map which show the correlation between different features and the total number of goals:
 
 ![The heat map](picture/Figure13.png)
 
@@ -127,9 +127,9 @@ The model has an accuracy rate of 68% in predicting over/under 2.5 goals, which 
 
 Used Xgboost to predict the win, loss or draw of a match.
 
-In XB_model.py, XGBoost is used to make three-category predictions for the results of a single game, with the categories being "Home Win", "Draw", and "Away Win". 
+In XB_model.py, XGBoost is used to make three classes classification predictions for the results of a single game, with the categories being "Home Win", "Draw", and "Away Win". 
 
-We used the same features and training and test sets as the previous model. The difference between XB_model and Xgboost_model is that the former uses three categories while the latter uses two categories.
+We used the same features and training and test sets as the previous model. The difference between XB_model and Xgboost_model is that the former uses three classes classification while the latter uses binary classification.
 
 ![XB Confusion Matrix](picture/Figure_20.png)
 
@@ -153,6 +153,15 @@ I think we achieved our goal, with all three models being more accurate than ran
 - Ramdom_forest_model: 0.26 > 0.1
 - Xgboost_model: 0.68 > 0.5
 - XB_model: 0.56 > 0.33
+
+![summarize](picture/Figure_200.png)
+
+Compared with the other two models, Xgboost_model has the most practical value. (To predit over/under.)
+
+## Shortcomings and areas for improvement
+
+We originally planned to add more features to the dataset after the midterm, such as weather, team ratings, etc. However, considering that the database has about 200,000 records (which means we need 200,000 weather data related to these 200,000 games), and we only have two people (and the technical ability is not enough), we finally chose to give up adding features and try other new models (XB_model). If there is enough time or technical ability in the future, perhaps adding more features can greatly improve the performance of these models.
+
 
 
 
