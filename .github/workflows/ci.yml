@@ -30,7 +30,7 @@ jobs:
           pip install pytest
 
       - name: Add workspace to PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE/cs506-final-project" >> $GITHUB_ENV
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
