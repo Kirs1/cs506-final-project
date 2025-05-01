@@ -12,7 +12,7 @@ SCRIPTS := \
 
 .PHONY: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost_model XB_model clean
 
-all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost_model XB_model clean
+all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost_model XB_model 
 
 install:
 	$(PIP) install -r requirements.txt
