@@ -105,7 +105,59 @@ In Xgboost.model.py, use XGBoost to do a binary classification task - predict wh
 
 We used the same features and training and test sets as the previous model. Unlike random forests that train multiple trees at once, XGBoost iteratively adds trees one by one, and each new tree learns in the direction of minimizing the gradient of the prediction errors of all previous trees until n_estimators is reached. For each row X_test[i] in the test set, XGBoost will throw it into all the iteratively trained trees and accumulate the scores output by these trees. Finally, the accumulated results are converted into the predicted probabilities of each category through a softmax function, and the category corresponding to the maximum value is taken as the predict output (0 or 1). predict_proba(X_test) can get the specific probabilities [P(≤2.5), P(>2.5)].
 
-![Xg Confusion Matrix](picture/Figure_17.png)
+![Xg Confusion Matrix](picture/Figure_117.png)
+
+According to the confusion matrix, we can see that the prediction effect of this model is not bad. Whether it is greater than 2.5 goals or less than 2.5 goals, about 2/3 of the predictions are correct.
+
+![Xg features importance](picture/Figure_18.png)
+
+Here, away_shots_on_target and home_shots_on_target have the longest bars, indicating that when judging whether a game will have more than 2.5 goals, "away team shots on target" and "home team shots on target" contribute the most to the split decision - the model believes that they are most helpful in distinguishing over/under goals.
+
+On the contrary, the feature bars of odds or total shots are relatively short, indicating that although they are also used, they are relatively less helpful to the final prediction of the model.
+
+Shots on target is an indicator that directly reflects the efficiency of the attack: more shots on target means more goals. XGBoost found during the training process that it can "split" samples more effectively, thereby separating over/under goals, so it is given high importance.
+
+Although odds information (avg_over25, avg_under25, etc.) is a comprehensive expectation of history and the market, it is not as direct as the real "scene data" in terms of sample level distinction, so the relative weight is lower.
+
+![Xg pictures](picture/Figure_19.png)
+
+The model has an accuracy rate of 68% in predicting over/under 2.5 goals, which is relatively valuable and can be considered an effective learning outcome.
+
+### 3. XB_model
+
+Used Xgboost to predict the win, loss or draw of a match.
+
+In XB_model.py, XGBoost is used to make three-category predictions for the results of a single game, with the categories being "Home Win", "Draw", and "Away Win". 
+
+We used the same features and training and test sets as the previous model. The difference between XB_model and Xgboost_model is that the former uses three categories while the latter uses two categories.
+
+![XB Confusion Matrix](picture/Figure_20.png)
+
+From the confusion matrix, we can see that the prediction of home win is the most accurate. In the data, home win is usually the most common result (home team has obvious advantages in many leagues), away win is second, and draw is the most difficult to predict. Draws often occur when the strength of the two teams is very close and the game is stalemate. The model relies more on the features of "handicap win, draw and loss odds" + "shot data", and is not sensitive enough to extreme draws (draws). At the same time, the proportion of draws is much smaller than that of wins and losses, which also leads to this.
+
+![XB features importance](picture/Figure_21.png)
+
+The bar for shots on target is the longest, which means there are more shots on target, and the model is more inclined to judge it as a win (or at least a draw), followed by the odds of home win and away win or draw. 
+
+The more shots on target, the greater the pressure on the opponent's goalkeeping and the more chances to score. XGBoost frequently uses the "shot on target" threshold as the optimal cut point when splitting the tree, thereby accumulating the most "gain".
+
+The avg_home_win / avg_away_win of the handicap is essentially a summary of the probability of different results based on historical big data. Although it contains a lot of information, it is a "global" prior, not as "locally" accurate as the real-time shots on target of the same game.
+
+![XB picutre](picture/Figure_22.png)
+
+In all the matches where the home team won, 73% were correctly predicted as home wins by the model, indicating that the model had the highest discrimination for home team wins. 62% of the samples where the away team won were correctly identified, which was the second best performance, better than draws but worse than home wins. Only 22% of the samples where the draws were actually drawn were correctly identified, and most of the draws were misclassified as home wins or away wins, making draws the most difficult to predict. Across all samples, the model predicted 56% of the match results correctly on average. Due to the limitations of the dataset itself, it is difficult for us to improve the accuracy of predicting draws, but the overall accuracy of 56% still met our expectations.
+
+## Summarize
+I think we achieved our goal, with all three models being more accurate than random guessing.
+
+- Ramdom_forest_model: 0.26 > 0.1
+- Xgboost_model: 0.68 > 0.5
+- XB_model: 0.56 > 0.33
+
+
+
+
+
 
 
 
