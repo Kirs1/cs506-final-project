@@ -37,12 +37,12 @@ And some features that are strongly correlated with the number of goals：
 - HST = Home Team Shots on Target
 - AST = Away Team Shots on Target
 
+We use connect.py to find the data with the above eleven features from the data set. Convenient for subsequent use.
+
 Also the number of goals scored：
 - FTHG  = Full Time Home Team Goals
 - FTAG  = Full Time Away Team Goals
 - Total_goals = FTHG + FTAG
-
-We use connect.py to find the data with the above eleven features from the data set. Convenient for subsequent use.
 
 ### data_clean
 
