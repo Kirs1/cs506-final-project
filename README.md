@@ -5,12 +5,13 @@ Midterm repo presentation:https://youtu.be/2QugIp1c2kw
 The tool for predicting integer and interval goals
 
 ## Summary
-Goal Predictor is a tool for predicting integer goals and interval goals (less than 2.5 goals and more than 2.5 goals). It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals.
+Goal Predictor is a tool for predicting integer goals, interval goals (less than 2.5 goals and more than 2.5 goals) and win/draw/loss. It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals and win/draw/loss.
 
 ## Run the code
 1. Make sure the required toolkit and python3 are installed on your computer.
 2. Git clone cs506-final-project.
 3. In the cs506-final-project folder of the terminal, enter: make. (Automatically download the environment to decompress the zip and run the code.)
+You can also choose to run in segments, but you must first make connect and make clean_data. （After installing the environment and unzipping）
 
 
 # Data
@@ -19,6 +20,7 @@ We are currently using a public database from Kaggle: https://www.kaggle.com/dat
 We will try to merge it with other databases to get more features (such as weather, lineup ratings, etc.) to strengthen the correlation between the input data and the number of goals scored.
 
 ## Data preprocessing and visualization
+### Select features
 We read all the odds related features from the database：
 
 - AvgH = Market average home win odds
@@ -40,6 +42,10 @@ Also the number of goals scored：
 - FTAG  = Full Time Away Team Goals
 - Total_goals = FTHG + FTAG
 
+We use connect.py to find the data with the above eleven features from the data set. Convenient for subsequent use.
+
+### data_clean
+
 The histogram can well show the distribution of total goals:
 
 ![The histogram can well show the distribution of total goals](picture/Figure1.png)
@@ -56,6 +62,8 @@ For example, in this scatter plot, we can see that there are several differences
 
 Similarly, in this scatter plot of Avg < 2.5 vs total_goals, we choose to filter out data with a total goal count greater than 9 and an average under 2.5 goals less than 5.
 
+We created clean_data.py to clean up some of the above data.
+
 We plot a heat map to show the correlation between different features and the total number of goals:
 
 ![The heat map](picture/Figure13.png)
@@ -64,11 +72,12 @@ From the heat map, we can observe that shots on target have a strong positive co
 
 ## Data modeling and preliminary results.
 We currently use three different models：
-- Poisson_regression_model: Evaluate the contribution of each feature to Poisson model performance metrics such as R^2 and MSE. Add/remove features to determine their importance to model performance. The aforementioned shots and shots on target features significantly improve the performance of the Poisson regression model. In the future, we will also use it to determine the importance of added features (such as weather, lineup rating, etc.) to model performance.
 
-- Ramdom_forest_model: Used to predict the number of goals scored as an integer. Due to the uncertainty of football itself, guessing the specific number of goals often appears to be less accurate. With the current features, the accuracy is only 0.259, and it is expected to be improved by adding more relevant features in the future.
+- Ramdom_forest_model: Used to predict the number of goals scored as an integer.
 
-- Xgboost.model: Used to predict the interval in which goals will be scored in a match. Currently two ranges are set (less than 2.5 goals or more than 2.5 goals). The advantage of intervals is that they are more predictable than specific numbers. The predicted accuracy under the current features is 0.67. Due to the fact that the number of samples between 0-2 goals is very close to the number of samples with 3 goals or more. (As can be seen in the previous histogram) The F1 Score is very close to the accurate value (the difference is less than 1%). This is a relatively reliable result in football prediction. It is also expected that adding more relevant features in the future can increase accuracy value.
+![RF Confusion Matrix](picture/figure_14.png)
+
+- Xgboost_model: Used to predict the interval in which goals will be scored in a match. Currently two ranges are set (less than 2.5 goals or more than 2.5 goals). The advantage of intervals is that they are more predictable than specific numbers. The predicted accuracy under the current features is 0.67. Due to the fact that the number of samples between 0-2 goals is very close to the number of samples with 3 goals or more. (As can be seen in the previous histogram) The F1 Score is very close to the accurate value (the difference is less than 1%). This is a relatively reliable result in football prediction. It is also expected that adding more relevant features in the future can increase accuracy value.
 
 The training data for the above three models are the filtered data between 2019 and 2020, and the test data are the filtered data in 2021. Although the database itself provides data between 2001 and 2021, most of the data before 2019 lack key odds data, so the data before 2019 has been filtered out. 
 
