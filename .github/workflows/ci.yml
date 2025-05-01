@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Add project folder to PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE/cs506-final-project" >> $GITHUB_ENV
+
       - name: Run tests
         run: |
           pytest --maxfail=1 --disable-warnings -q
