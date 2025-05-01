@@ -75,7 +75,13 @@ We currently use three different models：
 
 - Ramdom_forest_model: Used to predict the number of goals scored as an integer.
 
-![RF Confusion Matrix](picture/figure_14.png)
+![RF Confusion Matrix](picture/Figure_14.png)
+
+From the confusion matrix, we can see that the prediction of the exact number of goals is not very good. Especially after the number of goals is greater than 7, no prediction was successful. This is because the proportion of matches with more than or equal to 7 goals in the database (training set) is extremely small, and the model has not been fully trained in this case, so it is naturally impossible to predict. On the contrary, the prediction of 1, 2, and 3 goals is much better, because these three situations account for the largest proportion in the database (training set) and have been fully trained. The situation where these three goals appear at the same time is also the most common.
+
+![RF features importance](picture/Figure_15.png)
+
+
 
 - Xgboost_model: Used to predict the interval in which goals will be scored in a match. Currently two ranges are set (less than 2.5 goals or more than 2.5 goals). The advantage of intervals is that they are more predictable than specific numbers. The predicted accuracy under the current features is 0.67. Due to the fact that the number of samples between 0-2 goals is very close to the number of samples with 3 goals or more. (As can be seen in the previous histogram) The F1 Score is very close to the accurate value (the difference is less than 1%). This is a relatively reliable result in football prediction. It is also expected that adding more relevant features in the future can increase accuracy value.
 
