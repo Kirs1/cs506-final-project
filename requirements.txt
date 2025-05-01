@@ -1,9 +1,6 @@
-sqlite3
 pandas
-matplotlib.pyplot
+matplotlib
 seaborn
-sklearn.linear_model
-sklearn.metrics
-sklearn.ensemble
+scikit-learn
 xgboost
 numpy
