@@ -6,3 +6,4 @@ sklearn.linear_model
 sklearn.metrics
 sklearn.ensemble
 xgboost
+numpy
