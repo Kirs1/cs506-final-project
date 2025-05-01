@@ -71,9 +71,12 @@ We plot a heat map to show the correlation between different features and the to
 From the heat map, we can observe that shots on target have a strong positive correlation with the total number of goals. In addition, shots, odds of over/under 2.5 goals, away win and draw odds also have a certain correlation with the total number of goals. From the heat map, we can observe that shots on target have a strong positive correlation with the total number of goals. In addition, shots, odds of over/under, away wins and draws also have a certain correlation with the total number of goals. The correlation between features and total goals is crucial for the prediction model. The addition of strongly correlated features is a huge improvement for the model. This is why we added the two features of shots on target and shots. Before adding these two features, the R^2 value of the poisson regression model was only a few percent, but after adding these two features, the R^2 value increased to about 0.25. The accuracy of the predictions of the other two models also increased to varying degrees. Therefore, if we want to improve the prediction ability of the model, it is essential to add strongly correlated features in the future.
 
 ## Data modeling and preliminary results.
+
+The data in the database that has the eleven features we need are actually distributed in 2019-2021, so we use the data from 2019-2020 as the training set of the model and the data from 2021 as the test set of the model.
+
 We currently use three different models：
 
-- Ramdom_forest_model: Used to predict the number of goals scored as an integer.
+- Ramdom_forest_model: Used Ramdom_forest to predict the number of goals scored as an integer.
 
 ![RF Confusion Matrix](picture/Figure_14.png)
 
@@ -81,21 +84,19 @@ From the confusion matrix, we can see that the prediction of the exact number of
 
 ![RF features importance](picture/Figure_15.png)
 
+In the case of predicting accurate goals, the feature related to odds is the "probability" indicator calculated from history and handicaps, which itself highly summarizes the home and away teams' tendency to score goals. When distinguishing between subcategories such as "0 goals, 1 goal, 2 goals...", this type of prior probability is often the most informative, so it is frequently selected as a split dimension in the forest. Although shots on the field can also reflect the possibility of scoring, it fluctuates more and has more noise in each game than the long-term accumulated "trend" of odds, so its importance ranks in the middle. Finally, even if shots on target are directly related to goals, they are not as stable as those comprehensive probability indicators for distinguishing such fine categories as "3 goals, 4 goals, 5 goals...", so they are rarely used in the top and middle-level splits of the tree, and the bars are the shortest.
+
+![RF pictures](picture/Figure_16.png)
+
+The final accuracy result is consistent with the confusion matrix. The model has the highest accuracy in predicting 1, 2, and 3 goals, and it is almost impossible to predict games with more than 6 goals. In fact, accurately predicting the total number of goals in a game is difficult in itself, and the overall accuracy of 0.26 is also in line with our expectations.
+
 
 
 - Xgboost_model: Used to predict the interval in which goals will be scored in a match. Currently two ranges are set (less than 2.5 goals or more than 2.5 goals). The advantage of intervals is that they are more predictable than specific numbers. The predicted accuracy under the current features is 0.67. Due to the fact that the number of samples between 0-2 goals is very close to the number of samples with 3 goals or more. (As can be seen in the previous histogram) The F1 Score is very close to the accurate value (the difference is less than 1%). This is a relatively reliable result in football prediction. It is also expected that adding more relevant features in the future can increase accuracy value.
 
 The training data for the above three models are the filtered data between 2019 and 2020, and the test data are the filtered data in 2021. Although the database itself provides data between 2001 and 2021, most of the data before 2019 lack key odds data, so the data before 2019 has been filtered out. 
 
-## Future plan:
-Merge other databases to add more features (such as weather, lineup scores, etc.), and try other models to find out if there is a better fit than the current model.
 
-## Reproducability
-In order to reproduce our result, follow the below steps:
-
-- pip install -r requirements.txt.
-- Unzip soccerdatabase.zip.
-- run different model files.
 
 
 
