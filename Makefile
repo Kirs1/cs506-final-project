@@ -18,7 +18,7 @@ install:
 	$(PIP) install -r requirements.txt
 
 unzip:
-	@unzip -o soccerdatabase.zip -d soccerdatabase
+	@unzip -j -o soccerdatabase.zip
 
 connect:
 	$(PYTHON) connect.py
