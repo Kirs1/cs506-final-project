@@ -29,7 +29,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Add project folder to PYTHONPATH
+      - name: Add workspace to PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE/cs506-final-project" >> $GITHUB_ENV
 
       - name: Run tests
