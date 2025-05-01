@@ -7,6 +7,11 @@ The tool for predicting integer and interval goals
 ## Summary
 Goal Predictor is a tool for predicting integer goals and interval goals (less than 2.5 goals and more than 2.5 goals). It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals.
 
+## Run the code
+1. Make sure the required toolkit and python3 are installed on your computer.
+2. Git clone cs506-final-project.
+3. Enter the command: make in the cs506-final-project folder of the terminal.
+
 # Data
 ## Dataset
 We are currently using a public database from Kaggle: https://www.kaggle.com/datasets/sashchernuh/european-football.
