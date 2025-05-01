@@ -70,13 +70,20 @@ We plot a heat map to show the correlation between different features and the to
 
 From the heat map, we can observe that shots on target have a strong positive correlation with the total number of goals. In addition, shots, odds of over/under 2.5 goals, away win and draw odds also have a certain correlation with the total number of goals. From the heat map, we can observe that shots on target have a strong positive correlation with the total number of goals. In addition, shots, odds of over/under, away wins and draws also have a certain correlation with the total number of goals. The correlation between features and total goals is crucial for the prediction model. The addition of strongly correlated features is a huge improvement for the model. This is why we added the two features of shots on target and shots. Before adding these two features, the R^2 value of the poisson regression model was only a few percent, but after adding these two features, the R^2 value increased to about 0.25. The accuracy of the predictions of the other two models also increased to varying degrees. Therefore, if we want to improve the prediction ability of the model, it is essential to add strongly correlated features in the future.
 
-## Data modeling and preliminary results.
+## Data modeling and results.
 
 The data in the database that has the eleven features we need are actually distributed in 2019-2021, so we use the data from 2019-2020 as the training set of the model and the data from 2021 as the test set of the model.
 
+![data set and test set picture](picture/Figure_0.png)
+
 We currently use three different models：
 
-- Ramdom_forest_model: Used Ramdom_forest to predict the number of goals scored as an integer.
+### 1. Ramdom_forest_model
+Used Ramdom_forest to predict the number of goals scored as an integer.
+
+In Ramdom_forest_model.py, “predicting the exact number of goals” is to discretize the total number of goals in each game into 10 categories of 0–9, and then use random forest to do multi-classification prediction.
+
+We used the 11 features we sorted out, used the data from 2019-2020 as the training set, the data from 2021 as the test set, and built 200 decision trees. During training, each tree will learn "how to divide the samples by total_goals_class" on the samples (Bootstrapped) and features (random subsets). For each row X_test[i] in the test set, the random forest will send it to each tree. Each tree will traverse downward from the root node according to if feature_j ≤ threshold then go left else go right, and give a "category prediction" (0-9) when it reaches the leaf node. Finally, the predictions of the 200 trees are "voted" and the category with the most votes is the predicted number of goals for the game.
 
 ![RF Confusion Matrix](picture/Figure_14.png)
 
@@ -90,12 +97,15 @@ In the case of predicting accurate goals, the feature related to odds is the "pr
 
 The final accuracy result is consistent with the confusion matrix. The model has the highest accuracy in predicting 1, 2, and 3 goals, and it is almost impossible to predict games with more than 6 goals. In fact, accurately predicting the total number of goals in a game is difficult in itself, and the overall accuracy of 0.26 is also in line with our expectations.
 
+### 2.Xgboost_model
 
+Used Xgboost to predit interval goals (less than 2.5 goals and more than 2.5 goals).
 
-- Xgboost_model: Used to predict the interval in which goals will be scored in a match. Currently two ranges are set (less than 2.5 goals or more than 2.5 goals). The advantage of intervals is that they are more predictable than specific numbers. The predicted accuracy under the current features is 0.67. Due to the fact that the number of samples between 0-2 goals is very close to the number of samples with 3 goals or more. (As can be seen in the previous histogram) The F1 Score is very close to the accurate value (the difference is less than 1%). This is a relatively reliable result in football prediction. It is also expected that adding more relevant features in the future can increase accuracy value.
+In Xgboost.model.py, use XGBoost to do a binary classification task - predict whether the total number of goals in a game is greater than 2.5 goals (goal_group 0 means ≤2.5 goals, 1 means >2.5 goals)
 
-The training data for the above three models are the filtered data between 2019 and 2020, and the test data are the filtered data in 2021. Although the database itself provides data between 2001 and 2021, most of the data before 2019 lack key odds data, so the data before 2019 has been filtered out. 
+We used the same features and training and test sets as the previous model. Unlike random forests that train multiple trees at once, XGBoost iteratively adds trees one by one, and each new tree learns in the direction of minimizing the gradient of the prediction errors of all previous trees until n_estimators is reached. For each row X_test[i] in the test set, XGBoost will throw it into all the iteratively trained trees and accumulate the scores output by these trees. Finally, the accumulated results are converted into the predicted probabilities of each category through a softmax function, and the category corresponding to the maximum value is taken as the predict output (0 or 1). predict_proba(X_test) can get the specific probabilities [P(≤2.5), P(>2.5)].
 
+![Xg Confusion Matrix](picture/Figure_17.png)
 
 
 
