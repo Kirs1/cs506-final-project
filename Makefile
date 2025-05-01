@@ -7,12 +7,12 @@ SCRIPTS := \
 		heat_map.py \
 		Poisson_regression_model.py \
 		Ramdom_forest_model.py \
-		Xgboost.model.py \
+		Xgboost_model.py \
 		XB_model.py \
 
-.PHONY: all install unzip connect clean_data heatmap poisson rf xgb_model xb_model clean
+.PHONY: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost_model XB_model clean
 
-all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost.model XB_model clean
+all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost_model XB_model clean
 
 install:
 	$(PIP) install -r requirements.txt
@@ -35,8 +35,8 @@ Poisson_regression_model:
 Ramdom_forest_model:
 	$(PYTHON) Ramdom_forest_model.py
 
-Xgboost.model:
-	$(PYTHON) Xgboost.model.py
+Xgboost_model:
+	$(PYTHON) Xgboost_model.py
 
 XB_model:
 	$(PYTHON) XB_model.py
