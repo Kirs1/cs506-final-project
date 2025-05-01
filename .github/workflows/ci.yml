@@ -29,3 +29,6 @@ jobs:
           pytest --maxfail=1 --disable-warnings -q
 
       - name: Cleanup
+        run: |
+          rm -rf __pycache__
+          find . -name '*.pyc' -delete
