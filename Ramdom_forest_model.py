@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
+
 df, X, y = load_data()
 df, X, y = filtered(df, X, y)
 
@@ -50,6 +51,14 @@ plt.ylabel("Actual Goals")
 plt.tight_layout()
 plt.show()
 
+plt.figure(figsize=(10, 6))
+importance = clf.feature_importances_
+sns.barplot(x=importance, y=features)
+plt.title("Ramdom_forest Feature Importance")
+plt.xlabel("Importance Score")
+plt.ylabel("Features")
+plt.tight_layout()
+plt.show()
 
 recalls = recall_score(y_test, y_pred, average=None, labels=list(range(10)))
 
