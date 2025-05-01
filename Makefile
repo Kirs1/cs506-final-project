@@ -10,7 +10,7 @@ SCRIPTS := \
 		Xgboost.model.py \
 		XB_model.py \
 
-.PHONY: all clean install
+.PHONY: all install unzip connect clean_data heatmap poisson rf xgb_model xb_model clean
 
 all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost.model XB_model clean
 
