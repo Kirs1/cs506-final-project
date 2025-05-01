@@ -30,7 +30,7 @@ jobs:
           pip install pytest
 
       - name: Unzip database
-        run: unzip -o soccerdatabase.zip -d soccerdatabase
+        run: unzip -j -o soccerdatabase.zip
 
       - name: Add workspace to PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
