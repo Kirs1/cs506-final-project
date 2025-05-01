@@ -10,7 +10,8 @@ Goal Predictor is a tool for predicting integer goals and interval goals (less t
 ## Run the code
 1. Make sure the required toolkit and python3 are installed on your computer.
 2. Git clone cs506-final-project.
-3. Enter the command: make in the cs506-final-project folder of the terminal.
+3. In the cs506-final-project folder of the terminal, enter: make. (Automatically download the environment to decompress the zip and run the code.)
+
 
 # Data
 ## Dataset
