@@ -12,10 +12,13 @@ SCRIPTS := \
 
 .PHONY: all clean install
 
-all: install connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost.model XB_model clean
+all: install unzip connect clean_data heat_map Poisson_regression_model Ramdom_forest_model Xgboost.model XB_model clean
 
 install:
 	$(PIP) install -r requirements.txt
+
+unzip:
+	@unzip -o soccerdatabase.zip -d soccerdatabase
 
 connect:
 	$(PYTHON) connect.py
