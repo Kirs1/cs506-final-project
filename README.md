@@ -163,7 +163,16 @@ Compared with the other two models, Xgboost_model has the most practical value. 
 
 We originally planned to add more features to the dataset after the midterm, such as weather, team ratings, etc. However, considering that the database has about 200,000 records (which means we need 200,000 weather data related to these 200,000 games), and we only have two people (and the technical ability is not enough), we finally chose to give up adding features and try other new models (XB_model). If there is enough time or technical ability in the future, perhaps adding more features can greatly improve the performance of these models.
 
+## How to use the current model to make predictions
+Take Xgboost_model as an example：
 
+1.Make sure you have a sample with 11 features.
+
+2.Call the model to make predictions
+
+ie:prediction = model.predict(new_sample)
+
+print(f"Prediction category: {prediction[0]}")// 0 means ≤2.5, 1 means >2.5
 
 
 
