@@ -1,6 +1,6 @@
 # cs506-final-project repo
 Midterm repo presentation:https://youtu.be/2QugIp1c2kw
-Final presentation:https://youtu.be/O3Ew4Ku7EFs
+Final presentation:https://youtu.be/1VRIfMdfIw4
 
 ## Goal Predictor
 The tool for predicting integer, interval goals and win/draw/loss in a match.
