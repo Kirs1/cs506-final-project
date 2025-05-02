@@ -9,7 +9,7 @@ The tool for predicting integer, interval goals and win/draw/loss in a match.
 Goal Predictor is a tool for predicting integer goals, interval goals (less than 2.5 goals and more than 2.5 goals) and win/draw/loss. It makes predictions by inputting match data. Currently, the Random Forest model is used to predict integer goals, and the Xgboost model is used to predict interval goals and win/draw/loss.
 
 ## Run the code
-1. Make sure the required toolkit and python3 are installed on your computer.
+1. Make sure the required toolkit(pip and make) and python3 are installed on your computer.
 2. Git clone cs506-final-project.
 3. In the cs506-final-project folder of the terminal, enter: make. (Automatically download the environment to decompress the zip and run the code.)
 You can also choose to run in segments, but you must first make connect and make clean_data. （After installing the environment and unzipping）
